@@ -18,12 +18,12 @@ const Posts = () => {
   });
 
   return (
-    <div className="flex flex-col gap-3 relative my-5 min-[600px]:mx-5">
+    <div className="flex flex-col gap-3 relative my-5 min-[600px]:mx-5 md:mx-2">
       {data.map((post: IPost) => (
         <Link
           href={`/posts/${post.slug}`}
           key={post._id}
-          className=" rounded-md text-center custom-shadow mx-2 p-2 xs:p-3 xs:mx-5 max-w-[600px] min-[600px]:mx-auto hover:bg-slate-100/50 transition-all duration-200 ease-linear"
+          className=" rounded-md text-center custom-shadow mx-2 p-2 xs:p-3 xs:mx-5 max-w-[600px] lg:max-w-[800px] min-[600px]:mx-auto hover:bg-slate-100/50 transition-all duration-200 ease-linear"
         >
           <Image
             src={post.mainImage}

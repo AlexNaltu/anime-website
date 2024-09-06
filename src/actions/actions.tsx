@@ -19,3 +19,24 @@ export const getPosts = async () => {
     return { error: "An error occurred while fetching posts" };
   }
 };
+
+export const getLatestNews = async () => {
+  try {
+    const latestNews =
+      await client.fetch(groq`*[_type == "post"] && "News" in categories[]->title] | order(publishedAt desc) {
+              _id,
+              title,
+              "slug": slug.current,
+              description,
+              publishedAt,
+              readingTime,
+              "mainImage": mainImage.asset->url,
+              "category": categories[]->{
+                title
+              }
+            }`);
+
+    console.log(latestNews);
+    return latestNews;
+  } catch (error: any) {}
+};

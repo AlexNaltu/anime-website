@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PT_Serif } from "next/font/google";
 import "./globals.css";
-import QueryProvider from "@/app/components/providers/query-client-provider";
+import QueryProvider from "@/components/providers/query-client-provider";
 
 const maven = PT_Serif({ subsets: ["latin"], weight: "400" });
 

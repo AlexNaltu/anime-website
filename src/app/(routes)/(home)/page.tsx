@@ -1,21 +1,24 @@
-import { getPosts } from "@/actions/actions";
-import MenuNavbar from "@/app/components/navbar/menu-navbar";
-import Searchbar from "@/app/components/navbar/searchbar";
-import UserNavbar from "@/app/components/navbar/user-navbar";
-import Newsletter from "@/app/components/newsletter/newsletter";
-import Posts from "@/app/components/posts/posts";
+import { getLatestNews, getPosts } from "@/actions/actions";
+import MenuNavbar from "@/components/navbar/menu-navbar";
+import Searchbar from "@/components/navbar/searchbar";
+import UserNavbar from "@/components/navbar/user-navbar";
+import Newsletter from "@/components/newsletter/newsletter";
+import LatestNews from "@/components/posts/latest-news";
+import Posts from "@/components/posts/posts";
 import { getQueryClient } from "@/lib/query";
+import { IPost } from "@/types/types";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import Image from "next/image";
 
 export default async function Home() {
   const queryClient = getQueryClient();
+
   await queryClient.prefetchQuery({
     queryKey: ["posts"],
     queryFn: async () => {
       const posts = await getPosts();
       if (posts.error) throw new Error(posts.error);
-      if (posts.success) return posts.success;
+      return posts.success;
     },
   });
 
@@ -29,10 +32,15 @@ export default async function Home() {
           <Searchbar />
         </nav>
       </div>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Posts />
-      </HydrationBoundary>
-      <Newsletter />
+      <div className="md:flex justify-between max-w-[1500px] mx-auto">
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <Posts />
+        </HydrationBoundary>
+        <div>
+          <LatestNews />
+          <Newsletter />
+        </div>
+      </div>
     </div>
   );
 }
