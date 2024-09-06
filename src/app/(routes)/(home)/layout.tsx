@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { PT_Serif } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/app/components/providers/query-client-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const maven = PT_Serif({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={maven.className}>
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

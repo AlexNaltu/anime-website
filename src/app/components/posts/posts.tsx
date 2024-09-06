@@ -3,7 +3,9 @@ import { getPosts } from "@/actions/actions";
 import { IPost } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { formatDate } from "date-fns";
 
 const Posts = () => {
   const { data, error, isLoading } = useQuery({
@@ -16,13 +18,27 @@ const Posts = () => {
   });
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3 relative my-5 min-[600px]:mx-5">
       {data.map((post: IPost) => (
-        <div key={post.id}>
-          <h1>{post.title}</h1>
-          <p>{post.description}</p>
-          <Image src={post.mainImage} alt="logo" width={170} height={100} />
-        </div>
+        <Link
+          href={`/posts/${post.slug}`}
+          key={post._id}
+          className=" rounded-md text-center custom-shadow mx-2 p-2 xs:p-3 xs:mx-5 max-w-[600px] min-[600px]:mx-auto hover:bg-slate-100/50 transition-all duration-200 ease-linear"
+        >
+          <Image
+            src={post.mainImage}
+            alt="logo"
+            width={1000}
+            height={1000}
+            className="rounded-md"
+          />
+          <h1 className="font-black ">{post.title}</h1>
+          <div className="flex justify-between text-xs">
+            <p>{post.readingTime} min read</p>
+            <p>{formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}</p>
+          </div>
+          <p className="line-clamp-4 font-semibold">{post.description}</p>
+        </Link>
       ))}
     </div>
   );

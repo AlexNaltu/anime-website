@@ -2,6 +2,7 @@ import { getPosts } from "@/actions/actions";
 import MenuNavbar from "@/app/components/navbar/menu-navbar";
 import Searchbar from "@/app/components/navbar/searchbar";
 import UserNavbar from "@/app/components/navbar/user-navbar";
+import Newsletter from "@/app/components/newsletter/newsletter";
 import Posts from "@/app/components/posts/posts";
 import { getQueryClient } from "@/lib/query";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
@@ -31,6 +32,7 @@ export default async function Home() {
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Posts />
       </HydrationBoundary>
+      <Newsletter />
     </div>
   );
 }
