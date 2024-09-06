@@ -3,7 +3,7 @@ import { groq } from "next-sanity";
 
 export const getPosts = async () => {
   try {
-    const posts =
+    const data =
       await client.fetch(groq`*[_type == "post"] | order(publishedAt desc) {
               title,
               slug,
@@ -11,8 +11,8 @@ export const getPosts = async () => {
               publishedAt,
             }`);
 
-    return posts;
+    return { success: data };
   } catch (error: any) {
-    throw new Error(error.message);
+    return { error: "An error occurred while fetching posts" };
   }
 };

@@ -1,9 +1,23 @@
+import { getPosts } from "@/actions/actions";
 import MenuNavbar from "@/app/components/navbar/menu-navbar";
 import Searchbar from "@/app/components/navbar/searchbar";
 import UserNavbar from "@/app/components/navbar/user-navbar";
+import Posts from "@/app/components/posts/posts";
+import { getQueryClient } from "@/lib/query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["posts"],
+    queryFn: async () => {
+      const posts = await getPosts();
+      if (posts.error) throw new Error(posts.error);
+      if (posts.success) return posts.success;
+    },
+  });
+
   return (
     <div>
       <UserNavbar />
@@ -14,6 +28,9 @@ export default function Home() {
           <Searchbar />
         </nav>
       </div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <Posts />
+      </HydrationBoundary>
     </div>
   );
 }
