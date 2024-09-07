@@ -26,17 +26,17 @@ export default async function Home() {
     <div>
       <UserNavbar />
       <div className="border-y-4 border-black">
-        <nav className="flex items-center justify-between max-w-[1500px] mx-auto px-2">
+        <nav className="flex items-center justify-between max-w-[1300px] mx-auto px-2">
           <MenuNavbar />
           <Image src="/icons/logo.svg" alt="logo" width={170} height={100} />
           <Searchbar />
         </nav>
       </div>
-      <div className="md:flex justify-between max-w-[1500px] mx-auto">
+      <div className="md:flex justify-between max-w-[1300px] mx-auto">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Posts />
         </HydrationBoundary>
-        <div>
+        <div className="flex flex-col my-5 mx-2">
           <LatestNews />
           <Newsletter />
         </div>
