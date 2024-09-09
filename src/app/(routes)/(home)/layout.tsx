@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={maven.className}>
+      <body className={`${maven.className}`}>
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

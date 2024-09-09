@@ -36,7 +36,6 @@ export const getLatestNews = async () => {
               }
             }`);
 
-    console.log(latestNews);
     return latestNews;
   } catch (error: any) {
     throw new Error("An error occurred while fetching latest news");
