@@ -30,9 +30,30 @@ const Posts = () => {
 
   return (
     <div>
-      {articles.slice(0, displayPost).map((article: IPost) => (
-        <div key={article._id}>
-          <h1>{article.title}</h1>
+      {articles.slice(0, displayPost).map((post: IPost) => (
+        <div
+          className="flex flex-col gap-3 relative my-5 min-[600px]:mx-5 md:mx-2"
+          key={post._id}
+        >
+          <Link
+            href={`/posts/${post.slug}`}
+            key={post._id}
+            className=" rounded-md text-center custom-shadow mx-2 p-2 xs:p-3 xs:mx-5 max-w-[600px] lg:max-w-[650px] min-[600px]:mx-auto hover:bg-slate-100/50 transition-all duration-200 ease-linear"
+          >
+            <Image
+              src={post.mainImage}
+              alt="logo"
+              width={1000}
+              height={1000}
+              className="rounded-md"
+            />
+            <h1 className="font-black ">{post.title}</h1>
+            <div className="flex justify-between text-xs">
+              <p>{post.readingTime} min read</p>
+              <p>{formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}</p>
+            </div>
+            <p className="line-clamp-4 font-semibold">{post.description}</p>
+          </Link>
         </div>
       ))}
       {displayPost < articles.length ? (
