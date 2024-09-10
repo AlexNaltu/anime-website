@@ -1,18 +1,28 @@
+import { getPostBySlug } from "@/actions/actions";
+import PostPage from "@/components/posts/post-page";
 import { getQueryClient } from "@/lib/query";
+import { IPost } from "@/types/types";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 
-const PostPage = async () => {
+const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
   const queryClient = getQueryClient();
-
   await queryClient.prefetchQuery({
-    queryKey: ["posts"],
+    queryKey: ["post", params.slug],
     queryFn: async () => {
-      const posts = await getPosts();
-      if (posts.error) throw new Error(posts.error);
-      return posts.success;
+      const post = await getPostBySlug({ slug: params.slug });
+      if (post.error) throw new Error(post.error);
+      return post.success;
     },
   });
-  return <div>PostPage</div>;
+
+  return (
+    <div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <PostPage slug={params.slug} />
+      </HydrationBoundary>
+    </div>
+  );
 };
 
-export default PostPage;
+export default PostSlugPage;

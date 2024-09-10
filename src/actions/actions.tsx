@@ -1,6 +1,10 @@
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 
+interface SlugProps {
+  slug: string;
+}
+
 export const getPosts = async () => {
   try {
     const data =
@@ -39,5 +43,28 @@ export const getLatestNews = async () => {
     return latestNews;
   } catch (error: any) {
     throw new Error("An error occurred while fetching latest news");
+  }
+};
+
+export const getPostBySlug = async ({ slug }: SlugProps) => {
+  try {
+    const post = await client.fetch(
+      groq`*[_type == "post" && slug.current == "${slug}"][0] {
+       _id,
+       title,
+       "slug": slug.current,
+       description,
+       publishedAt,
+       readingTime,
+       "mainImage": mainImage.asset->url,
+       "category": categories[]->{
+       title
+      }
+    }`
+    );
+
+    return post;
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 };
