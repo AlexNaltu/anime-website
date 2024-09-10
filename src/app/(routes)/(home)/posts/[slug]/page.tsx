@@ -1,7 +1,6 @@
 import { getPostBySlug } from "@/actions/actions";
 import PostPage from "@/components/posts/post-page";
 import { getQueryClient } from "@/lib/query";
-import { IPost } from "@/types/types";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 
@@ -11,8 +10,9 @@ const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
     queryKey: ["post", params.slug],
     queryFn: async () => {
       const post = await getPostBySlug({ slug: params.slug });
+      console.log(post);
       if (post.error) throw new Error(post.error);
-      return post.success;
+      return post;
     },
   });
 

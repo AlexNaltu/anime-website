@@ -63,6 +63,10 @@ export const getPostBySlug = async ({ slug }: SlugProps) => {
     }`
     );
 
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
     return post;
   } catch (error: any) {
     throw new Error(error.message);

@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { PT_Serif } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/components/providers/query-client-provider";
+import UserNavbar from "@/components/navbar/user-navbar";
+import MenuNavbar from "@/components/navbar/menu-navbar";
+import Image from "next/image";
+import Searchbar from "@/components/navbar/searchbar";
+import Link from "next/link";
 
 const maven = PT_Serif({ subsets: ["latin"], weight: "400" });
 
@@ -17,8 +22,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${maven.className} bg-black text-white`}>
-        <QueryProvider>{children}</QueryProvider>
+      <body
+        className={`${maven.className} bg-black text-white flex flex-col w-full h-screen`}
+      >
+        <QueryProvider>
+          <UserNavbar />
+          <div className="border-y-4 border-black">
+            <nav className="flex items-center justify-between max-w-[1300px] mx-auto px-2">
+              <MenuNavbar />
+              <Link href={"/"}>
+                <Image
+                  src="/icons/logo.svg"
+                  alt="logo"
+                  width={170}
+                  height={100}
+                />
+              </Link>
+              <Searchbar />
+            </nav>
+          </div>
+          <main className="flex-1">{children}</main>
+        </QueryProvider>
       </body>
     </html>
   );
