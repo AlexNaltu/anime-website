@@ -10,6 +10,7 @@ import { urlFor } from "@/sanity/lib/image";
 import urlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/lib/client";
 
+// Interface for the custom image component
 interface ImageComponentProps {
   value: any;
   isInline: boolean;
@@ -36,6 +37,7 @@ const PostPage = ({ slug }: { slug: string }) => {
     return <div>Error: {error.message}</div>;
   }
 
+  // Custom image component for rendering images in the PortableText
   const simpleImageComponent = ({ value, isInline }: ImageComponentProps) => {
     return (
       <Image
@@ -55,7 +57,8 @@ const PostPage = ({ slug }: { slug: string }) => {
     );
   };
 
-  const compoentns = {
+  // Components object for the PortableText, can be used to render custom components in the PortableText
+  const components = {
     types: {
       image: simpleImageComponent,
     },
@@ -66,7 +69,7 @@ const PostPage = ({ slug }: { slug: string }) => {
       <h1>{data?.title}</h1>
       <p>{data?.description}</p>
       <Image src={data?.mainImage!} alt="main" width={300} height={300} />
-      <PortableText value={data?.body!} components={compoentns} />
+      <PortableText value={data?.body!} components={components} />
     </div>
   );
 };

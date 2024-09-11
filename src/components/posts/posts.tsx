@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { formatDate } from "date-fns";
 import { Button } from "../ui/button";
 
+// Initial post list and increment post list
 const initialPostList = 1;
 const incrementInitialPostList = 1;
 
@@ -21,6 +22,7 @@ const Posts = () => {
     },
   });
 
+  // state for the post list
   const [displayPost, setDisplayPost] = useState(initialPostList);
   const [articles, setArticles] = useState(data);
 
