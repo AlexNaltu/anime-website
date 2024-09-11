@@ -6,7 +6,12 @@ export interface IPost {
   slug: string;
   description: string;
   publishedAt: string;
+  category: ICategory[];
   mainImage: string;
   readingTime: number;
   body: TypedObject | TypedObject[];
+}
+
+export interface ICategory {
+  title: string;
 }

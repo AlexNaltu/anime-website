@@ -5,6 +5,10 @@ interface SlugProps {
   slug: string;
 }
 
+interface RelatedPostsProps {
+  category: string;
+}
+
 export const getPosts = async () => {
   try {
     const data =
@@ -69,6 +73,34 @@ export const getPostBySlug = async ({ slug }: SlugProps) => {
     }
 
     return post;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const getRelatedPosts = async ({ category }: RelatedPostsProps) => {
+  try {
+    const relatedPosts = await client.fetch(
+      groq`*[_type == "post" && "${category}" in categories[]->title] {
+       _id,
+       title,
+       "slug": slug.current,
+       description,
+       publishedAt,
+       body,
+       readingTime,
+       "mainImage": mainImage.asset->url,
+       "category": categories[]->{
+       title
+      }
+    }`
+    );
+
+    if (!relatedPosts) {
+      throw new Error("Post not found");
+    }
+
+    return relatedPosts;
   } catch (error: any) {
     throw new Error(error.message);
   }
