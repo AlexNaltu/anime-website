@@ -1,3 +1,5 @@
+import { TypedObject } from "sanity";
+
 export interface IPost {
   _id: string;
   title: string;
@@ -6,4 +8,5 @@ export interface IPost {
   publishedAt: string;
   mainImage: string;
   readingTime: number;
+  body: TypedObject | TypedObject[];
 }

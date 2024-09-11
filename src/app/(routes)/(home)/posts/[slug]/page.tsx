@@ -5,6 +5,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 
 const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
+  // Prefetch the post data
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["post", params.slug],

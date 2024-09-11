@@ -11,8 +11,8 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import Image from "next/image";
 
 export default async function Home() {
+  // Prefetch the posts data
   const queryClient = getQueryClient();
-
   await queryClient.prefetchQuery({
     queryKey: ["posts"],
     queryFn: async () => {

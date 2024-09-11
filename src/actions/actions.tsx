@@ -55,6 +55,7 @@ export const getPostBySlug = async ({ slug }: SlugProps) => {
        "slug": slug.current,
        description,
        publishedAt,
+       body,
        readingTime,
        "mainImage": mainImage.asset->url,
        "category": categories[]->{
