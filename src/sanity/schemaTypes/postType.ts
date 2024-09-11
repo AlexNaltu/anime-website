@@ -47,6 +47,11 @@ export const postType = defineType({
       of: [defineArrayMember({ type: "reference", to: { type: "category" } })],
     }),
     defineField({
+      name: "tags",
+      type: "array",
+      of: [defineArrayMember({ type: "reference", to: { type: "tags" } })],
+    }),
+    defineField({
       name: "publishedAt",
       type: "datetime",
     }),
