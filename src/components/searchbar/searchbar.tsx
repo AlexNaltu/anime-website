@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/drawer";
 import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "@/actions/actions";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { IPost } from "@/types/types";
 import Fuse from "fuse.js";
 import { Input } from "../ui/input";
@@ -50,17 +50,23 @@ const Searchbar = () => {
     handleSearch(searchTerm);
   };
 
+  // initialize the fuse search with useMemo
+  const fuse = useMemo(() => {
+    if (data) {
+      return new Fuse(data || [], {
+        keys: ["title", "description"],
+        includeScore: true,
+      });
+    }
+    return null;
+  }, [data]);
+
   useEffect(() => {
     // if there is no query text, set the search results to an empty array
-    if (!queryText) {
+    if (!queryText || !fuse) {
       setSearchResults([]);
       return;
     }
-    // initialize the fuse search
-    const fuse = new Fuse(data || [], {
-      keys: ["title"],
-      includeScore: true,
-    });
 
     // search the posts based on the query text
     const result = fuse.search(queryText);
@@ -86,7 +92,7 @@ const Searchbar = () => {
         </DrawerTrigger>
         <DrawerContent className="px-3 font-sans font-medium text-base bg-primary text-white max-w-[400px]">
           <DrawerHeader>
-            <DrawerTitle className="px-0 mx-0">Search</DrawerTitle>
+            <DrawerTitle>Search</DrawerTitle>
             <DrawerClose />
           </DrawerHeader>
           <DrawerDescription>
