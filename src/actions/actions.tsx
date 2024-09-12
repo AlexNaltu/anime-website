@@ -10,6 +10,7 @@ interface RelatedPostsProps {
   tags: string[];
 }
 
+// get all posts
 export const getPosts = async () => {
   try {
     const data =
@@ -29,6 +30,7 @@ export const getPosts = async () => {
   }
 };
 
+// get latest news
 export const getLatestNews = async () => {
   try {
     const latestNews =
@@ -54,6 +56,7 @@ export const getLatestNews = async () => {
   }
 };
 
+// get post by slug
 export const getPostBySlug = async ({ slug }: SlugProps) => {
   try {
     const post = await client.fetch(
@@ -85,6 +88,7 @@ export const getPostBySlug = async ({ slug }: SlugProps) => {
   }
 };
 
+// related posts based on category and tags
 export const getRelatedPosts = async ({
   category,
   tags,
