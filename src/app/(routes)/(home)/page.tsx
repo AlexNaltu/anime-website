@@ -1,4 +1,5 @@
 import { getPosts } from "@/actions/actions";
+import Filters from "@/components/filters/filters";
 import Newsletter from "@/components/newsletter/newsletter";
 import LatestNews from "@/components/posts/latest-news";
 import Posts from "@/components/posts/posts";
@@ -19,6 +20,7 @@ export default async function Home() {
 
   return (
     <div>
+      <Filters />
       <div className="md:flex justify-between max-w-[1300px] mx-auto">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Posts />
