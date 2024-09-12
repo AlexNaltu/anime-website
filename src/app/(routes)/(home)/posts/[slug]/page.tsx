@@ -1,7 +1,7 @@
 import { getPostBySlug, getRelatedPosts } from "@/actions/actions";
 import PostPage from "@/components/posts/post-page";
 import { getQueryClient } from "@/lib/query";
-import { ICategory, IPost } from "@/types/types";
+import { ICategory, IPost, ITag } from "@/types/types";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
@@ -23,7 +23,13 @@ const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
 
   //map categories to get related posts
   const categoryTitles = post!.category.map((cat: ICategory) => cat.title);
-  const relatedPosts = await getRelatedPosts({ category: categoryTitles[0] });
+  const postTags = post!.tags.map((tag: ITag) => tag.tag);
+  const relatedPosts = await getRelatedPosts({
+    category: categoryTitles[0],
+    tags: postTags,
+  });
+
+  console.log(relatedPosts);
 
   return (
     <div>
@@ -37,10 +43,15 @@ const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
             <Image
               src={post.mainImage}
               alt="logo"
-              width={1000}
+              width={100}
               height={1000}
               className="rounded-md"
             />
+            <div>
+              {post.tags.map((tag: ITag) => (
+                <p key={tag.tag}>{tag.tag}</p>
+              ))}
+            </div>
           </div>
         ))}
       </div>

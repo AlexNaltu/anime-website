@@ -7,6 +7,7 @@ interface SlugProps {
 
 interface RelatedPostsProps {
   category: string;
+  tags: string[];
 }
 
 export const getPosts = async () => {
@@ -41,7 +42,10 @@ export const getLatestNews = async () => {
               "mainImage": mainImage.asset->url,
               "category": categories[]->{
                 title
-              }
+              },
+              "tags": tags[]->{
+              tag
+              },
             }`);
 
     return latestNews;
@@ -64,7 +68,10 @@ export const getPostBySlug = async ({ slug }: SlugProps) => {
        "mainImage": mainImage.asset->url,
        "category": categories[]->{
        title
-      }
+      },
+       "tags": tags[]->{
+       tag
+      },
     }`
     );
 
@@ -78,10 +85,13 @@ export const getPostBySlug = async ({ slug }: SlugProps) => {
   }
 };
 
-export const getRelatedPosts = async ({ category }: RelatedPostsProps) => {
+export const getRelatedPosts = async ({
+  category,
+  tags,
+}: RelatedPostsProps) => {
   try {
     const relatedPosts = await client.fetch(
-      groq`*[_type == "post" && "${category}" in categories[]->title] {
+      groq`*[_type == "post" && $category in categories[]->title && count((tags[]->tag)[@ in $tags]) > 0] {
        _id,
        title,
        "slug": slug.current,
@@ -92,8 +102,12 @@ export const getRelatedPosts = async ({ category }: RelatedPostsProps) => {
        "mainImage": mainImage.asset->url,
        "category": categories[]->{
        title
-      }
-    }`
+       },
+       "tags": tags[]->{
+       tag
+       },
+    }`,
+      { category, tags }
     );
 
     if (!relatedPosts) {

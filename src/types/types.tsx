@@ -7,6 +7,7 @@ export interface IPost {
   description: string;
   publishedAt: string;
   category: ICategory[];
+  tags: ITag[];
   mainImage: string;
   readingTime: number;
   body: TypedObject | TypedObject[];
@@ -14,4 +15,8 @@ export interface IPost {
 
 export interface ICategory {
   title: string;
+}
+
+export interface ITag {
+  tag: string;
 }
