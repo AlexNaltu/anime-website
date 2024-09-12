@@ -1,14 +1,9 @@
-import { getLatestNews, getPosts } from "@/actions/actions";
-import MenuNavbar from "@/components/navbar/menu-navbar";
-import Searchbar from "@/components/navbar/searchbar";
-import UserNavbar from "@/components/navbar/user-navbar";
+import { getPosts } from "@/actions/actions";
 import Newsletter from "@/components/newsletter/newsletter";
 import LatestNews from "@/components/posts/latest-news";
 import Posts from "@/components/posts/posts";
 import { getQueryClient } from "@/lib/query";
-import { IPost } from "@/types/types";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import Image from "next/image";
 
 export default async function Home() {
   // Prefetch the posts data
