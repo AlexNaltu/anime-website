@@ -18,6 +18,7 @@ import { getPosts } from "@/actions/actions";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 export default async function Navbar() {
+  // Prefetch the posts data for the search bar
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["posts"],

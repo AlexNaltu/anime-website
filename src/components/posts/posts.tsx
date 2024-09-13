@@ -34,7 +34,7 @@ const Posts = () => {
   return (
     <div>
       {categoryFilterPosts.map((post: IPost) => (
-        <div key={post._id}>
+        <Link key={post._id} href={`/posts/${post.slug}`}>
           <Image
             src={post.mainImage}
             alt={post.title}
@@ -48,7 +48,7 @@ const Posts = () => {
               {cat.title}
             </span>
           ))}
-        </div>
+        </Link>
       ))}
     </div>
   );

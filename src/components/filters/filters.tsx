@@ -10,7 +10,9 @@ interface FilterProps {
 }
 
 const Filters = ({ className }: FilterProps) => {
+  // useRouter hook to get the router object
   const router = useRouter();
+  // Function to set the filter based on the category
   const setFilter = (category: string) => {
     if (category) {
       router.push("/posts/?category=" + category);
