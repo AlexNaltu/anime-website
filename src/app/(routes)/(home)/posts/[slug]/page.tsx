@@ -1,4 +1,5 @@
 import { getPostBySlug, getRelatedPosts } from "@/actions/actions";
+import AddComment from "@/components/comments/add-comment-form";
 import PostPage from "@/components/posts/post-page";
 import { getQueryClient } from "@/lib/query";
 import { ICategory, IPost, ITag } from "@/types/types";
@@ -36,6 +37,7 @@ const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
       <HydrationBoundary state={dehydrate(queryClient)}>
         <PostPage slug={params.slug} />
       </HydrationBoundary>
+      <AddComment />
       <div className="flex gap-5">
         {relatedPosts.map((post: IPost) => (
           <div key={post._id} className="">
