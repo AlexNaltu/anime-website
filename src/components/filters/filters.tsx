@@ -9,6 +9,7 @@ const Filters = () => {
   const setFilter = (category: string) => {
     if (category) {
       router.push("/posts/?category=" + category);
+      console.log(category);
     }
     if (!category) {
       router.push("/");

@@ -4,22 +4,10 @@ import { getQueryClient } from "@/lib/query";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 
-const PostsPage = async () => {
-  const queryClient = getQueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ["posts"],
-    queryFn: async () => {
-      const posts = await getPosts();
-      if (posts.error) throw new Error(posts.error);
-      return posts.success;
-    },
-  });
-
+const PostsPage = () => {
   return (
     <div>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Posts />
-      </HydrationBoundary>
+      <Posts />
     </div>
   );
 };

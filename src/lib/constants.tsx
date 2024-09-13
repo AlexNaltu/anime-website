@@ -1,38 +1,38 @@
 export const Categories = [
   {
     title: "News",
-    href: "/posts/?category=News",
+    href: "News",
   },
   {
     title: "Reviews",
-    href: "/posts/?category=Reviews",
+    href: "Reviews",
   },
   {
     title: "Recommendations",
-    href: "/posts/?category=Recommendations",
+    href: "Recommendations",
   },
   {
     title: "Manga",
-    href: "/posts/?category=Manga",
+    href: "Manga",
   },
   {
     title: "Characters",
-    href: "/posts/?category=Characters",
+    href: "Characters",
   },
   {
     title: "Fandom",
-    href: "/posts/?category=Fandom",
+    href: "Fandom",
   },
   {
     title: "Merchandise",
-    href: "/posts/?category=Merchandise",
+    href: "Merchandise",
   },
   {
     title: "Top",
-    href: "/posts/?category=Top",
+    href: "Top",
   },
   {
     title: "Theories",
-    href: "/posts/?category=Theories",
+    href: "Theories",
   },
 ];

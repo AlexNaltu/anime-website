@@ -24,13 +24,12 @@ const Posts = () => {
   const categoryFilterPosts = useMemo(() => {
     if (category && data) {
       return data.filter((post: IPost) =>
-        post.category?.map((cat) => cat.title).includes(category.title)
+        // @ts-ignore
+        post.category?.map((cat) => cat.title).includes(category)
       );
     }
     return data;
   }, [data, category]);
-
-  console.log(categoryFilterPosts);
 
   return (
     <div>
@@ -44,6 +43,11 @@ const Posts = () => {
           />
           <h2>{post.title}</h2>
           <p>{post.description}</p>
+          {post.category.map((cat: ICategory) => (
+            <span key={cat.title} className="bg-red-950 text-white">
+              {cat.title}
+            </span>
+          ))}
         </div>
       ))}
     </div>
