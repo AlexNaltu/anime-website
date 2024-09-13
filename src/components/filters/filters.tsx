@@ -3,8 +3,13 @@
 import { Categories } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
-const Filters = () => {
+interface FilterProps {
+  className?: string;
+}
+
+const Filters = ({ className }: FilterProps) => {
   const router = useRouter();
   const setFilter = (category: string) => {
     if (category) {
@@ -19,7 +24,11 @@ const Filters = () => {
   return (
     <div>
       {Categories.map((category, i) => (
-        <Button key={i} onClick={() => setFilter(category.href)}>
+        <Button
+          key={i}
+          onClick={() => setFilter(category.href)}
+          className={cn(className, "bg-transparent text-white")}
+        >
           {category.title}
         </Button>
       ))}

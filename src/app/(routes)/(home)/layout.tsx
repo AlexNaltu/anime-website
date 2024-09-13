@@ -18,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${maven.className}  flex flex-col w-full h-screen`}>
+      <body
+        className={`${maven.className}  flex flex-col w-full h-full bg-gradient-to-b from-black from-70% to-red-950 to-100% text-white`}
+      >
         <QueryProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
