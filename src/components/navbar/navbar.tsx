@@ -46,13 +46,7 @@ export default async function Navbar() {
                 <DrawerTitle>Search</DrawerTitle>
                 <DrawerClose />
               </DrawerHeader>
-              <DrawerDescription>
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="border-2 border-black"
-                />
-              </DrawerDescription>
+              <DrawerDescription></DrawerDescription>
               <DrawerFooter>
                 <button>Search</button>
               </DrawerFooter>

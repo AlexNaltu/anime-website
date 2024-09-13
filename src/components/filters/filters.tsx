@@ -27,16 +27,3 @@ const Filters = () => {
 };
 
 export default Filters;
-
-/**
- * 
- *  <button onClick={() => setFilter("News")}>News</button>
-    <button onClick={() => setFilter("Reviews")}>Reviews</button>
-    <button onClick={() => setFilter("Recommendations")}>Recommendations</button>
-    <button onClick={() => setFilter("Manga")}>Manga</button>
-    <button onClick={() => setFilter("Characters")}>Characters</button>
-    <button onClick={() => setFilter("Fandom")}>Fandom</button>
-    <button onClick={() => setFilter("Merchandise")}>Merchandise</button>
-    <button onClick={() => setFilter("Top")}>Top</button>
-    <button onClick={() => setFilter("Theories")}>Theories</button>
- */

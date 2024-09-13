@@ -1,18 +1,17 @@
 "use client";
 import { getPosts } from "@/actions/actions";
-import { IPost } from "@/types/types";
+import { ICategory, IPost } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { formatDate } from "date-fns";
 import { Button } from "../ui/button";
-
-// Initial post list and increment post list
-const initialPostList = 1;
-const incrementInitialPostList = 1;
+import { useSearchParams } from "next/navigation";
 
 const Posts = () => {
+  const params = useSearchParams();
+  const category = params.get("category") as ICategory | null;
   const { data, error, isLoading } = useQuery({
     queryKey: ["posts"],
     queryFn: async () => {
@@ -22,45 +21,31 @@ const Posts = () => {
     },
   });
 
-  // state for the post list
-  const [displayPost, setDisplayPost] = useState(initialPostList);
-  const [articles, setArticles] = useState(data);
+  const categoryFilterPosts = useMemo(() => {
+    if (category && data) {
+      return data.filter((post: IPost) =>
+        post.category?.map((cat) => cat.title).includes(category.title)
+      );
+    }
+    return data;
+  }, [data, category]);
 
-  const loadMore = () => {
-    setDisplayPost(displayPost + incrementInitialPostList);
-  };
+  console.log(categoryFilterPosts);
 
   return (
     <div>
-      {articles.slice(0, displayPost).map((post: IPost) => (
-        <div
-          className="flex flex-col gap-3 relative my-5 min-[600px]:mx-5 md:mx-2"
-          key={post._id}
-        >
-          <Link
-            href={`/posts/${post.slug}`}
-            key={post._id}
-            className=" rounded-md text-center custom-shadow mx-2 p-2 xs:p-3 xs:mx-5 max-w-[600px] lg:max-w-[650px] min-[600px]:mx-auto hover:bg-slate-100/50 transition-all duration-200 ease-linear"
-          >
-            <Image
-              src={post.mainImage}
-              alt="logo"
-              width={1000}
-              height={1000}
-              className="rounded-md"
-            />
-            <h1 className="font-black ">{post.title}</h1>
-            <div className="flex justify-between text-xs">
-              <p>{post.readingTime} min read</p>
-              <p>{formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}</p>
-            </div>
-            <p className="line-clamp-4 font-semibold">{post.description}</p>
-          </Link>
+      {categoryFilterPosts.map((post: IPost) => (
+        <div key={post._id}>
+          <Image
+            src={post.mainImage}
+            alt={post.title}
+            width={300}
+            height={200}
+          />
+          <h2>{post.title}</h2>
+          <p>{post.description}</p>
         </div>
       ))}
-      {displayPost < articles.length ? (
-        <Button onClick={loadMore}>Load More</Button>
-      ) : null}
     </div>
   );
 };

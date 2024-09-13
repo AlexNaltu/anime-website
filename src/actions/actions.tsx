@@ -22,6 +22,12 @@ export const getPosts = async () => {
               publishedAt,
               readingTime,
               "mainImage": mainImage.asset->url,
+              "category": categories[]->{
+                title
+              },
+              "tags": tags[]->{
+              tag
+              },
             }`);
 
     return { success: data };
