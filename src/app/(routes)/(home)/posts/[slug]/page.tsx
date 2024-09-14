@@ -35,7 +35,7 @@ const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
       <HydrationBoundary state={dehydrate(queryClient)}>
         <PostPage slug={params.slug} />
       </HydrationBoundary>
-      <AddComment />
+      <AddComment postId={post?._id!} />
       <div className="flex gap-5">
         {relatedPosts.map((post: IPost) => (
           <div key={post._id} className="">

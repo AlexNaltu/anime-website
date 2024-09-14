@@ -1,8 +1,5 @@
 "use client";
-
 import { useForm } from "react-hook-form";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 
 interface Props {
   postId: string;
@@ -18,12 +15,13 @@ const AddComment = ({ postId }: Props) => {
 
   const onSubmit = async (data: any) => {
     const { name, email, comment } = data;
+
     const res = await fetch("/api/comment", {
       method: "POST",
       body: JSON.stringify({ name, email, comment, postId }),
     });
     if (!res.ok) {
-      console.log("An error occurred while submitting the comment");
+      console.log("Failed to add comment");
       return;
     }
 
@@ -31,28 +29,43 @@ const AddComment = ({ postId }: Props) => {
   };
 
   return (
-    <div>
-      <h1>Leave A comment</h1>
-      <form onSubmit={handleSubmit((data) => onSubmit(data))}>
-        <label htmlFor="">Name</label>
-        <Input {...register("name", { required: true })} />
+    <div className="mt-14">
+      <p>
+        Leave a comment <span role="img">💬</span>
+      </p>
+      <form
+        className="flex flex-col border dark:border-purple-950 shadow-sm rounded px-8 pt-6 pb-6 mb-10"
+        onSubmit={handleSubmit((data) => onSubmit(data))}
+      >
+        <label>Name</label>
+        <input
+          {...register("name", { required: true })}
+          className="mb-4 py-1 bg-amber-100 dark:bg-slate-900"
+        />
         {errors.name && (
           <p className="text-red-600 text-xs">Name is required.</p>
         )}
-        <label htmlFor="">Email | Your Email will not be published</label>
-        <Input
+        <label>
+          Email{" "}
+          <span className="text-xs">(Your email will not be published!)</span>
+        </label>
+        <input
           {...register("email", {
             required: true,
             pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
           })}
+          className="mb-4 py-1 bg-amber-100 dark:bg-slate-900"
         />
         {errors.email && (
           <p className="text-red-600 text-xs">
             Please enter a valid email address.
           </p>
         )}
-        <label htmlFor="">Comment</label>
-        <Textarea {...register("comment", { required: true, minLength: 2 })} />
+        <label>Comment</label>
+        <textarea
+          {...register("comment", { required: true, minLength: 2 })}
+          className="mb-4 py-1 bg-amber-100 dark:bg-slate-900"
+        />
         {errors.comment && (
           <p className="text-red-600 text-xs">Minimum 2 characters.</p>
         )}
