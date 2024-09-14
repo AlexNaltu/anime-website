@@ -30,8 +30,6 @@ const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
     tags: postTags,
   });
 
-  console.log(relatedPosts);
-
   return (
     <div>
       <HydrationBoundary state={dehydrate(queryClient)}>
