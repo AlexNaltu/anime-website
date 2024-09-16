@@ -3,6 +3,7 @@ import { groq } from "next-sanity";
 
 interface SlugProps {
   slug: string;
+  commentsOrder?: string;
 }
 
 interface RelatedPostsProps {
@@ -63,7 +64,10 @@ export const getLatestNews = async () => {
 };
 
 // get post by slug
-export const getPostBySlug = async ({ slug }: SlugProps) => {
+export const getPostBySlug = async ({
+  slug,
+  commentsOrder = "desc",
+}: SlugProps) => {
   try {
     const post = await client.fetch(
       groq`*[_type == "post" && slug.current == "${slug}"][0] {
@@ -76,11 +80,16 @@ export const getPostBySlug = async ({ slug }: SlugProps) => {
        readingTime,
        "mainImage": mainImage.asset->url,
        "category": categories[]->{
-       title
-      },
+       title,
+       },
        "tags": tags[]->{
        tag
-      },
+       },
+       "comments": *[_type == "comment" && post._ref = ^._id] | order(_createdAt ${commentsOrder}) {
+        name,
+        comment,
+       _createdAt
+       }
     }`
     );
 

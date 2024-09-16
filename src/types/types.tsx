@@ -11,6 +11,7 @@ export interface IPost {
   mainImage: string;
   readingTime: number;
   body: TypedObject | TypedObject[];
+  comments: Comment[];
 }
 
 export interface ICategory {
@@ -19,4 +20,11 @@ export interface ICategory {
 
 export interface ITag {
   tag: string;
+}
+
+export interface Comment {
+  name: string;
+  comment: string;
+  _createdAt: string;
+  _id: string;
 }
