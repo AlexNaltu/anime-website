@@ -8,11 +8,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
 
-const PostSlugPage = async ({
-  params,
-}: {
-  params: { slug: string; commentsOrder: string };
-}) => {
+const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
   // Prefetch the post data
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
@@ -20,7 +16,6 @@ const PostSlugPage = async ({
     queryFn: async () => {
       const post = await getPostBySlug({
         slug: params.slug,
-        commentsOrder: params.commentsOrder.toString(),
       });
       if (post.error) throw new Error(post.error);
       return post;
@@ -28,11 +23,19 @@ const PostSlugPage = async ({
   });
 
   //get the post data
-  const post = queryClient.getQueryData<IPost>([
-    "post",
-    params.slug,
-    params.commentsOrder,
-  ]);
+  const post = queryClient.getQueryData<IPost>(["post", params.slug]);
+
+  console.log("Post data:", post);
+
+  // Check if post is undefined
+  if (!post) {
+    return <div>Error: Post not found</div>;
+  }
+
+  // Check if category is undefined
+  if (!post.category) {
+    return <div>Error: Category not found</div>;
+  }
 
   //map categories to get related posts
   const categoryTitles = post!.category.map((cat: ICategory) => cat.title);
@@ -48,11 +51,7 @@ const PostSlugPage = async ({
         <PostPage slug={params.slug} />
       </HydrationBoundary>
       <AddComment postId={post?._id!} />
-      <AllComments
-        comments={post?.comments || []}
-        slug={params.slug}
-        commentsOrder={params.commentsOrder}
-      />
+      <AllComments comments={post?.comments || []} slug={params.slug} />
       <div className="flex gap-5">
         {relatedPosts.map((post: IPost) => (
           <div key={post._id} className="">

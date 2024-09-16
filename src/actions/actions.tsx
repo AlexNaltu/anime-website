@@ -3,7 +3,6 @@ import { groq } from "next-sanity";
 
 interface SlugProps {
   slug: string;
-  commentsOrder?: string;
 }
 
 interface RelatedPostsProps {
@@ -64,10 +63,7 @@ export const getLatestNews = async () => {
 };
 
 // get post by slug
-export const getPostBySlug = async ({
-  slug,
-  commentsOrder = "desc",
-}: SlugProps) => {
+export const getPostBySlug = async ({ slug }: SlugProps) => {
   try {
     const post = await client.fetch(
       groq`*[_type == "post" && slug.current == "${slug}"][0] {
@@ -85,11 +81,11 @@ export const getPostBySlug = async ({
        "tags": tags[]->{
        tag
        },
-       "comments": *[_type == "comment" && post._ref = ^._id] | order(_createdAt ${commentsOrder}) {
+       "comments": *[_type == "comment" && post._ref == ^._id ] | order(_createdAt desc) {
         name,
         comment,
-       _createdAt
-       }
+        _createdAt,
+     }
     }`
     );
 
@@ -99,6 +95,8 @@ export const getPostBySlug = async ({
 
     return post;
   } catch (error: any) {
+    console.error("Error fetching post:", error.message);
+
     throw new Error(error.message);
   }
 };
