@@ -85,6 +85,7 @@ export const getPostBySlug = async ({ slug }: SlugProps) => {
         name,
         comment,
         _createdAt,
+        _id,
      }
     }`
     );
