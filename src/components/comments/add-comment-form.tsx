@@ -1,5 +1,6 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 interface Props {
@@ -7,7 +8,9 @@ interface Props {
 }
 
 const AddComment = ({ postId }: Props) => {
+  // Get the user and sign in status
   const { user, isSignedIn } = useUser();
+  // Form handling
   const {
     register,
     handleSubmit,
@@ -18,6 +21,7 @@ const AddComment = ({ postId }: Props) => {
   const onSubmit = async (data: any) => {
     const { name, email, comment } = data;
 
+    // fetch request to add comment
     const res = await fetch("/api/comment", {
       method: "POST",
       body: JSON.stringify({
@@ -63,7 +67,10 @@ const AddComment = ({ postId }: Props) => {
           />
         </form>
       ) : (
-        <p>You must be logged in to comment</p>
+        <div>
+          <p>You must be logged in to comment</p>
+          <Link href="/sign-in">Sign In</Link>
+        </div>
       )}
     </div>
   );

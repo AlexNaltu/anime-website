@@ -1,4 +1,5 @@
 import { client } from "@/sanity/lib/client";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request, res: Response) {
