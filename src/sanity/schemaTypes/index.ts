@@ -6,6 +6,7 @@ import { postType } from "./postType";
 import { authorType } from "./authorType";
 import { tagsType } from "./tagsType";
 import { comment } from "./commentType";
+import featuredPlaylistType from "./playlist/featuredPlaylistType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -15,5 +16,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     authorType,
     tagsType,
     comment,
+    featuredPlaylistType,
   ],
 };

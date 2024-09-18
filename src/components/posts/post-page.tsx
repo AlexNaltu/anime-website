@@ -16,27 +16,12 @@ interface ImageComponentProps {
   isInline: boolean;
 }
 
-const PostPage = ({ slug }: { slug: string }) => {
-  // Fetch the post data
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["post", slug],
-    queryFn: async () => {
-      const post = await getPostBySlug({ slug });
+interface PostProps {
+  slug: string;
+  post: IPost;
+}
 
-      if (!post) throw new Error("Post not found");
-
-      return post as IPost;
-    },
-  });
-  // loading state for the post
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
+const PostPage = ({ slug, post }: PostProps) => {
   // Custom image component for rendering images in the PortableText
   const simpleImageComponent = ({ value, isInline }: ImageComponentProps) => {
     return (
@@ -66,10 +51,10 @@ const PostPage = ({ slug }: { slug: string }) => {
 
   return (
     <div>
-      <h1>{data?.title}</h1>
-      <p>{data?.description}</p>
-      <Image src={data?.mainImage!} alt="main" width={300} height={300} />
-      <PortableText value={data?.body!} components={components} />
+      <h1>{post.title}</h1>
+      <p>{post.description}</p>
+      <Image src={post.mainImage!} alt="main" width={300} height={300} />
+      <PortableText value={post.body!} components={components} />
     </div>
   );
 };

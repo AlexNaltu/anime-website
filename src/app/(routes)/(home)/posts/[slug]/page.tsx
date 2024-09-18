@@ -9,33 +9,7 @@ import Image from "next/image";
 import React from "react";
 
 const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
-  // Prefetch the post data
-  const queryClient = getQueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ["post", params.slug],
-    queryFn: async () => {
-      const post = await getPostBySlug({
-        slug: params.slug,
-      });
-      if (post.error) throw new Error(post.error);
-      return post;
-    },
-  });
-
-  //get the post data
-  const post = queryClient.getQueryData<IPost>(["post", params.slug]);
-
-  console.log("Post data:", post);
-
-  // Check if post is undefined
-  if (!post) {
-    return <div>Error: Post not found</div>;
-  }
-
-  // Check if category is undefined
-  if (!post.category) {
-    return <div>Error: Category not found</div>;
-  }
+  const post = await getPostBySlug({ slug: params.slug });
 
   //map categories to get related posts
   const categoryTitles = post!.category.map((cat: ICategory) => cat.title);
@@ -47,9 +21,7 @@ const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <PostPage slug={params.slug} />
-      </HydrationBoundary>
+      <PostPage slug={params.slug} post={post} />
       <AddComment postId={post?._id!} />
       <AllComments comments={post?.comments || []} slug={params.slug} />
       <div className="flex gap-5">

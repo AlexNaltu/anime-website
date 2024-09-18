@@ -3,7 +3,6 @@ import Filters from "@/components/filters/filters";
 import Newsletter from "@/components/newsletter/newsletter";
 import LatestNews from "@/components/posts/latest-news";
 import Posts from "@/components/posts/posts";
-import TestPosts from "@/components/posts/test-posts";
 import { getQueryClient } from "@/lib/query";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
@@ -24,7 +23,6 @@ export default async function Home() {
       <Filters />
       <div className="md:flex justify-between max-w-[1300px] mx-auto">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <TestPosts />
           <Posts />
         </HydrationBoundary>
         <div className="flex flex-col my-5 mx-2">

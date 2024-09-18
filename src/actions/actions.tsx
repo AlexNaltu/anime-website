@@ -14,7 +14,7 @@ interface RelatedPostsProps {
 export const getPosts = async () => {
   try {
     const data =
-      await client.fetch(groq`*[_type == "post"] | order(publishedAt desc) {
+      await client.fetch(groq`*[_type == "post"] | order(publishedAt desc)[0...15] {
               _id,
               title,
               "slug": slug.current,
