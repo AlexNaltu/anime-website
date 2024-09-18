@@ -137,3 +137,22 @@ export const getRelatedPosts = async ({
     throw new Error(error.message);
   }
 };
+
+export const getFeaturedPlaylist = async () => {
+  try {
+    const featuredPlaylist =
+      await client.fetch(groq`*[_type == "featuredPlaylist"] {
+      _id,
+      title,
+      posts[0...4]->{
+        _id,
+       title,
+       "slug": slug.current,
+       }
+      }`);
+
+    return featuredPlaylist;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
