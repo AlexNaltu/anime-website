@@ -36,9 +36,10 @@ export default async function Home() {
 
       <div className="md:flex justify-between gap-2">
         <div className="flex flex-col gap-2 md:max-w-[750px]">
-          <div className="md:max-w-[750px]">
-            <h1 className="border-b-2 border-red-500">Latest</h1>
-            <Filters className="p-0 mr-4" />
+          <div className="md:max-w-[700px]">
+            <h1>Latest</h1>
+            <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
+            <Filters className="flex max-w-[750px] overflow-x-auto filter-scrollbar gap-4" />
           </div>
           {posts.success.map((post: IPost) => (
             <Card
@@ -69,9 +70,9 @@ export default async function Home() {
           ))}
         </div>
         <div className="">
-          <div className="flex flex-col mx-2">
+          <div>
             <h1 className="font-black text-xl">Categories</h1>
-            <Filters className="flex flex-col gap-2 px-0" />
+            <Filters className="flex flex-col text-start" />
             <LatestNews />
           </div>
         </div>

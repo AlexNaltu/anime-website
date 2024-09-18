@@ -24,12 +24,12 @@ const Filters = ({ className }: FilterProps) => {
   };
 
   return (
-    <div className="flex max-w-[750px] overflow-x-auto filter-scrollbar">
+    <div className={cn(className)}>
       {Categories.map((category, i) => (
         <Button
           key={i}
           onClick={() => setFilter(category.href)}
-          className={cn(className, "bg-transparent text-white")}
+          className="bg-transparent p-0  hover:bg-transparent hover:text-red-950 w-fit"
         >
           {category.title}
         </Button>

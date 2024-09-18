@@ -21,7 +21,7 @@ export default function RootLayout({
     <Clerk>
       <html lang="en">
         <body
-          className={`${maven.className}  flex flex-col w-full h-full bg-gradient-to-b from-black from-50% to-red-950 to-100% text-white`}
+          className={`${maven.className}  flex flex-col w-full h-full bg-gradient-to-b from-black from-65% to-red-950 to-100% text-white`}
         >
           <QueryProvider>
             <Navbar />
