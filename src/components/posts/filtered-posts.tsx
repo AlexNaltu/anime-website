@@ -9,7 +9,7 @@ import { formatDate } from "date-fns";
 import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
 
-const Posts = () => {
+const FilteredPosts = () => {
   const params = useSearchParams();
   const category = params.get("category") as ICategory | null;
   const { data, error, isLoading } = useQuery({
@@ -54,4 +54,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default FilteredPosts;

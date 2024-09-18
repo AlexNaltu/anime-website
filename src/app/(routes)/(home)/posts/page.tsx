@@ -1,13 +1,24 @@
 import { getPosts } from "@/actions/actions";
-import Posts from "@/components/posts/posts";
+import FilteredPosts from "@/components/posts/filtered-posts";
 import { getQueryClient } from "@/lib/query";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 
 const PostsPage = () => {
+  const queryClient = getQueryClient();
+  queryClient.prefetchQuery({
+    queryKey: ["posts"],
+    queryFn: async () => {
+      const posts = await getPosts();
+      if (posts.error) throw new Error(posts.error);
+      return posts.success;
+    },
+  });
   return (
     <div>
-      <Posts />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <FilteredPosts />
+      </HydrationBoundary>
     </div>
   );
 };

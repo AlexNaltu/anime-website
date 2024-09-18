@@ -1,5 +1,11 @@
 import { TypedObject } from "sanity";
 
+export interface IPlaylist {
+  _id: string;
+  title: string;
+  posts: IPost[];
+}
+
 export interface IPost {
   _id: string;
   title: string;

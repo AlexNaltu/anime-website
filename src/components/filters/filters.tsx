@@ -24,7 +24,7 @@ const Filters = ({ className }: FilterProps) => {
   };
 
   return (
-    <div>
+    <div className="flex max-w-[750px] overflow-x-auto filter-scrollbar">
       {Categories.map((category, i) => (
         <Button
           key={i}
