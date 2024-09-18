@@ -11,7 +11,7 @@ export default defineType({
       type: "string",
     }),
     defineField({
-      name: "featuredPost",
+      name: "posts",
       title: "Featured Posts",
       type: "array",
       of: [
