@@ -18,6 +18,7 @@ import { Input } from "../ui/input";
 import SearchResults from "./search-results";
 import { useForm } from "react-hook-form";
 import { debounce } from "lodash";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Searchbar = () => {
   // fetching the posts
@@ -90,10 +91,10 @@ const Searchbar = () => {
             height={35}
           />
         </DrawerTrigger>
-        <DrawerContent className="px-3 font-sans font-medium text-base bg-primary text-white max-w-[400px]">
-          <DrawerHeader>
-            <DrawerTitle>Search</DrawerTitle>
-            <DrawerClose />
+        <DrawerContent className="px-3 font-sans font-medium text-base bg-black text-white max-w-[400px]">
+          <DrawerHeader className="flex justify-between items-center mb-2">
+            <DrawerTitle>Search Blog</DrawerTitle>
+            <DrawerClose children={<AiOutlineClose size={30} />} />
           </DrawerHeader>
           <DrawerDescription>
             <form>
