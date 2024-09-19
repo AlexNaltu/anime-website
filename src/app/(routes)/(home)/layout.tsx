@@ -4,6 +4,7 @@ import "./globals.css";
 import QueryProvider from "@/components/providers/query-client-provider";
 import Navbar from "@/components/navbar/navbar";
 import Clerk from "@/components/providers/clerk-provider";
+import Footer from "@/components/footer/footer";
 
 const maven = PT_Serif({ subsets: ["latin"], weight: "400" });
 
@@ -20,12 +21,13 @@ export default function RootLayout({
   return (
     <Clerk>
       <html lang="en">
-        <body
-          className={`${maven.className}  flex flex-col w-full h-full bg-gradient-to-b from-black from-65% to-red-950 to-100% text-white`}
-        >
+        <body className={`${maven.className}`}>
           <QueryProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
+            <div className="flex flex-col w-full min-h-screen  bg-gradient-to-b from-black from-50% to-red-950 to-100% text-white">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
           </QueryProvider>
         </body>
       </html>

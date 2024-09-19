@@ -14,7 +14,7 @@ interface RelatedPostsProps {
 export const getPosts = async () => {
   try {
     const data =
-      await client.fetch(groq`*[_type == "post"] | order(publishedAt desc)[0...15] {
+      await client.fetch(groq`*[_type == "post"] | order(publishedAt desc) {
               _id,
               title,
               "slug": slug.current,
@@ -148,11 +148,37 @@ export const getFeaturedPlaylist = async () => {
         _id,
        title,
        "slug": slug.current,
+       "mainImage": mainImage.asset->url,
        }
       }`);
 
     return featuredPlaylist;
   } catch (error: any) {
     throw new Error(error.message);
+  }
+};
+
+export const getLatestPosts = async () => {
+  try {
+    const data =
+      await client.fetch(groq`*[_type == "post"] | order(publishedAt desc)[0...15] {
+              _id,
+              title,
+              "slug": slug.current,
+              description,
+              publishedAt,
+              readingTime,
+              "mainImage": mainImage.asset->url,
+              "category": categories[]->{
+                title
+              },
+              "tags": tags[]->{
+              tag
+              },
+            }`);
+
+    return { success: data };
+  } catch (error: any) {
+    return { error: "An error occurred while fetching posts" };
   }
 };

@@ -1,6 +1,9 @@
-import { getFeaturedPlaylist, getPosts } from "@/actions/actions";
+import {
+  getFeaturedPlaylist,
+  getLatestPosts,
+  getPosts,
+} from "@/actions/actions";
 import Filters from "@/components/filters/filters";
-import Newsletter from "@/components/newsletter/newsletter";
 import LatestNews from "@/components/posts/latest-news";
 import { IPlaylist, IPost } from "@/types/types";
 import {
@@ -13,28 +16,62 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { formatDate } from "date-fns";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Home() {
   const [posts, featuredPlaylist] = await Promise.all([
-    getPosts(),
+    getLatestPosts(),
     getFeaturedPlaylist(),
   ]);
 
   return (
-    <div className="max-w-[1300px] mx-auto px-2">
+    <div className="max-w-[1300px] mx-auto px-2 sm:px-4">
       <div>
-        {featuredPlaylist.map((playlist: IPlaylist) => (
-          <div key={playlist._id}>
-            {playlist.posts.map((post: IPost) => (
-              <div key={post._id}>
-                <h1>{post.title}</h1>
+        {featuredPlaylist.map((playlist: IPlaylist) => {
+          const posts = playlist.posts;
+          const firstPost = posts[0];
+          const lastThreePosts = posts.slice(-3);
+
+          return (
+            <div key={playlist._id}>
+              {/* First Image as a Large One */}
+              <div className="mb-4 relative min-h-[300px] max-h-[400px]">
+                <Image
+                  src={firstPost.mainImage}
+                  alt={firstPost.title}
+                  fill
+                  sizes="(max-width: 768px)"
+                  className="object-cover"
+                />
+                <h1 className="text-lg font-bold absolute bottom-[0.1px] bg-black bg-opacity-50 text-white p-1 line-clamp-1 w-full">
+                  {firstPost.title}
+                </h1>
               </div>
-            ))}
-          </div>
-        ))}
+
+              {/* Last Three Images as Smaller Ones */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {lastThreePosts.map((post: IPost) => (
+                  <div key={post._id} className="relative">
+                    <Image
+                      src={post.mainImage}
+                      alt={post.title}
+                      width={300}
+                      height={200}
+                      className="w-full h-auto object-cover"
+                    />
+                    <h1 className="text-lg font-bold absolute bottom-[0px] bg-black bg-opacity-50 text-white p-1 line-clamp-1 w-full">
+                      {post.title}
+                    </h1>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
-      <div className="md:flex justify-between gap-2">
+      <div className="lg:flex justify-between gap-2 my-4 sm:my-10">
         <div className="flex flex-col gap-2 md:max-w-[750px]">
           <div className="md:max-w-[700px]">
             <h1>Latest</h1>
@@ -53,7 +90,6 @@ export default async function Home() {
                   fill
                   sizes="(max-width: 768px) (height: 200px)"
                   style={{ objectFit: "cover" }}
-                  className=""
                 />
               </CardHeader>
               <CardContent className="p-2 flex flex-col self-end">
@@ -68,7 +104,13 @@ export default async function Home() {
               </CardContent>
             </Card>
           ))}
+          <Link href="/posts">
+            <Button className="bg-black  hover:bg-white hover:text-black hover:border-red-950 transition-all duration-150 ease-in my-2 w-full rounded-none">
+              Read More
+            </Button>
+          </Link>
         </div>
+
         <div className="">
           <div>
             <h1 className="font-black text-xl">Categories</h1>
