@@ -59,56 +59,62 @@ const FilteredPosts = () => {
   if (categoryFilterPosts && data)
     return (
       <div className="px-2 sm:px-4 max-w-[1300px] mx-auto">
-        <div className="md:max-w-[700px]">
-          <div>{category ? <h1>{category?.title}</h1> : <h2>Latest</h2>}</div>
+        <div className="my-2">
           <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
-          <Filters className="flex max-w-[750px] overflow-x-auto filter-scrollbar gap-4" />
+          <Filters className="flex overflow-x-auto filter-scrollbar gap-4" />
+          <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
         </div>
         <div>
-          {categoryFilterPosts
-            .slice(offset, offset + itemsPerPage)
-            .map((post: IPost) => (
-              <Card
-                className="rounded-none sm:flex justify-between"
-                key={post._id}
-              >
-                <CardHeader className="p-2 relative w-full sm:min-w-[40%] min-[900px]:w-[400px] h-[200px]">
-                  <Image
-                    src={post.mainImage}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 768px) (height: 200px)"
-                    style={{ objectFit: "cover" }}
-                  />
-                </CardHeader>
-                <CardContent className="p-2 flex flex-col self-end">
-                  <CardTitle>{post.title}</CardTitle>
-                  <div className="flex justify-between text-xs my-1">
-                    <p>{post.readingTime} min read</p>
-                    <p>
-                      {formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}
-                    </p>
-                  </div>
-                  <CardDescription className="line-clamp-4 sm:line-clamp-3">
-                    {post.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-        </div>
-        <ReactPaginate
-          pageCount={Math.ceil(
-            (categoryFilterPosts?.length || data?.length || 0) / itemsPerPage
+          {categoryFilterPosts.length > 0 ? (
+            categoryFilterPosts
+              .slice(offset, offset + itemsPerPage)
+              .map((post: IPost) => (
+                <Card
+                  className="rounded-none sm:flex justify-between"
+                  key={post._id}
+                >
+                  <CardHeader className="p-2 relative w-full sm:min-w-[40%] min-[900px]:w-[400px] h-[200px]">
+                    <Image
+                      src={post.mainImage}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) (height: 200px)"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </CardHeader>
+                  <CardContent className="p-2 flex flex-col self-end">
+                    <CardTitle>{post.title}</CardTitle>
+                    <div className="flex justify-between text-xs my-1">
+                      <p>{post.readingTime} min read</p>
+                      <p>
+                        {formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}
+                      </p>
+                    </div>
+                    <CardDescription className="line-clamp-4 sm:line-clamp-3">
+                      {post.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              ))
+          ) : (
+            <h1>No posts found</h1>
           )}
-          pageRangeDisplayed={2}
-          marginPagesDisplayed={1}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          activeClassName={"active"}
-          nextLabel={<MdKeyboardArrowRight size={25} />}
-          previousLabel={<MdKeyboardArrowLeft size={25} />}
-          breakLabel={"..."}
-        />
+        </div>
+        {categoryFilterPosts.length > 0 ? (
+          <ReactPaginate
+            pageCount={Math.ceil(
+              (categoryFilterPosts?.length || data?.length || 0) / itemsPerPage
+            )}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={1}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+            nextLabel={<MdKeyboardArrowRight size={25} />}
+            previousLabel={<MdKeyboardArrowLeft size={25} />}
+            breakLabel={"..."}
+          />
+        ) : null}
       </div>
     );
 };

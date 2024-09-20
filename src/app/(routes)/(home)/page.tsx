@@ -36,32 +36,36 @@ export default async function Home() {
             <div key={playlist._id}>
               {/* First Image as a Large One */}
               <div className="mb-4 relative min-h-[300px] max-h-[400px]">
-                <Image
-                  src={firstPost.mainImage}
-                  alt={firstPost.title}
-                  fill
-                  sizes="(max-width: 768px)"
-                  className="object-cover"
-                />
-                <h1 className="text-lg font-bold absolute bottom-[0.1px] bg-black bg-opacity-50 text-white p-1 line-clamp-1 w-full">
-                  {firstPost.title}
-                </h1>
+                <Link href={`/posts/${firstPost.slug}`}>
+                  <Image
+                    src={firstPost.mainImage}
+                    alt={firstPost.title}
+                    fill
+                    sizes="(max-width: 768px)"
+                    className="object-cover"
+                  />
+                  <h1 className="text-lg font-bold absolute bottom-[0.1px] bg-black bg-opacity-50 text-white p-1 line-clamp-1 w-full">
+                    {firstPost.title}
+                  </h1>
+                </Link>
               </div>
 
               {/* Last Three Images as Smaller Ones */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {lastThreePosts.map((post: IPost) => (
                   <div key={post._id} className="relative">
-                    <Image
-                      src={post.mainImage}
-                      alt={post.title}
-                      width={300}
-                      height={200}
-                      className="w-full h-auto object-cover"
-                    />
-                    <h1 className="text-lg font-bold absolute bottom-[0px] bg-black bg-opacity-50 text-white p-1 line-clamp-1 w-full">
-                      {post.title}
-                    </h1>
+                    <Link href={`/posts/${post.slug}`}>
+                      <Image
+                        src={post.mainImage}
+                        alt={post.title}
+                        width={300}
+                        height={200}
+                        className="w-full h-auto object-cover"
+                      />
+                      <h1 className="text-lg font-bold absolute bottom-[0px] bg-black bg-opacity-50 text-white p-1 line-clamp-1 w-full">
+                        {post.title}
+                      </h1>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -78,30 +82,31 @@ export default async function Home() {
             <Filters className="flex max-w-[750px] overflow-x-auto filter-scrollbar gap-4" />
           </div>
           {posts.success.map((post: IPost) => (
-            <Card
-              className="rounded-none sm:flex justify-between"
-              key={post._id}
-            >
-              <CardHeader className="p-2 relative w-full sm:min-w-[40%] min-[900px]:w-[400px] h-[200px]">
-                <Image
-                  src={post.mainImage}
-                  alt={post.title}
-                  fill
-                  sizes="(max-width: 768px) (height: 200px)"
-                  style={{ objectFit: "cover" }}
-                />
-              </CardHeader>
-              <CardContent className="p-2 flex flex-col self-end">
-                <CardTitle>{post.title}</CardTitle>
-                <div className="flex justify-between text-xs my-1">
-                  <p>{post.readingTime} min read</p>
-                  <p>{formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}</p>
-                </div>
-                <CardDescription className="line-clamp-4 sm:line-clamp-3">
-                  {post.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
+            <Link key={post._id} href={`/posts/${post.slug}`}>
+              <Card className="rounded-none sm:flex justify-between">
+                <CardHeader className="p-2 relative w-full sm:min-w-[40%] min-[900px]:w-[400px] h-[200px]">
+                  <Image
+                    src={post.mainImage}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 768px) (height: 200px)"
+                    style={{ objectFit: "cover" }}
+                  />
+                </CardHeader>
+                <CardContent className="p-2 flex flex-col self-end">
+                  <CardTitle>{post.title}</CardTitle>
+                  <div className="flex justify-between text-xs my-1">
+                    <p>{post.readingTime} min read</p>
+                    <p>
+                      {formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}
+                    </p>
+                  </div>
+                  <CardDescription className="line-clamp-4 sm:line-clamp-3">
+                    {post.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
           <Link href="/posts">
             <Button className="bg-black  hover:bg-white hover:text-black hover:border-red-950 transition-all duration-150 ease-in my-2 w-full rounded-none">
