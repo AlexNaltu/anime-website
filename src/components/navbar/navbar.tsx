@@ -32,11 +32,11 @@ export default async function Navbar() {
     <div>
       <UserNavbar />
       <div className="border-y-4 border-black">
-        <nav className="flex items-center justify-between max-w-[1300px] mx-auto px-2">
+        <nav className="flex items-center justify-between max-w-[1300px] mx-auto px-2 sm:px-4">
           <Drawer direction="left">
             <DrawerTrigger>
               <Image
-                src="/icons/search-icon.svg"
+                src="/icons/menu-icon.svg"
                 alt="logo"
                 width={35}
                 height={35}

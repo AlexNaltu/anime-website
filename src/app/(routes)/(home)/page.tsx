@@ -10,7 +10,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -27,7 +26,7 @@ export default async function Home() {
 
   return (
     <div className="max-w-[1300px] mx-auto px-2 sm:px-4">
-      <div>
+      <div className="mt-3 lg:mt-4">
         {featuredPlaylist.map((playlist: IPlaylist) => {
           const posts = playlist.posts;
           const firstPost = posts[0];

@@ -85,7 +85,7 @@ const Searchbar = () => {
       <Drawer direction="left">
         <DrawerTrigger>
           <Image
-            src="/icons/search-icon.svg"
+            src="/icons/searchbar-icon.svg"
             alt="logo"
             width={35}
             height={35}
