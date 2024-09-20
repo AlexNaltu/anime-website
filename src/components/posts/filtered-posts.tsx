@@ -69,32 +69,31 @@ const FilteredPosts = () => {
             categoryFilterPosts
               .slice(offset, offset + itemsPerPage)
               .map((post: IPost) => (
-                <Card
-                  className="rounded-none sm:flex justify-between"
-                  key={post._id}
-                >
-                  <CardHeader className="p-2 relative w-full sm:min-w-[40%] min-[900px]:w-[400px] h-[200px]">
-                    <Image
-                      src={post.mainImage}
-                      alt={post.title}
-                      fill
-                      sizes="(max-width: 768px) (height: 200px)"
-                      style={{ objectFit: "cover" }}
-                    />
-                  </CardHeader>
-                  <CardContent className="p-2 flex flex-col self-end">
-                    <CardTitle>{post.title}</CardTitle>
-                    <div className="flex justify-between text-xs my-1">
-                      <p>{post.readingTime} min read</p>
-                      <p>
-                        {formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}
-                      </p>
-                    </div>
-                    <CardDescription className="line-clamp-4 sm:line-clamp-3">
-                      {post.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                <Link key={post._id} href={`/posts/${post.slug}`}>
+                  <Card className="rounded-none sm:flex justify-between">
+                    <CardHeader className="p-2 relative w-full sm:min-w-[40%] min-[900px]:w-[400px] h-[200px]">
+                      <Image
+                        src={post.mainImage}
+                        alt={post.title}
+                        fill
+                        sizes="(max-width: 768px) (height: 200px)"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </CardHeader>
+                    <CardContent className="p-2 flex flex-col self-end ">
+                      <CardTitle>{post.title}</CardTitle>
+                      <div className="flex justify-between text-xs my-1">
+                        <p>{post.readingTime} min read</p>
+                        <p>
+                          {formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}
+                        </p>
+                      </div>
+                      <CardDescription className="line-clamp-4 sm:line-clamp-3">
+                        {post.description}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))
           ) : (
             <h1>No posts found</h1>

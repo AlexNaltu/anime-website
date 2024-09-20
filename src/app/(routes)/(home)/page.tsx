@@ -44,7 +44,7 @@ export default async function Home() {
                     sizes="(max-width: 768px)"
                     className="object-cover"
                   />
-                  <h1 className="text-lg font-bold absolute bottom-[0.1px] bg-black bg-opacity-50 text-white p-1 line-clamp-1 w-full">
+                  <h1 className="text-lg font-bold absolute bottom-[0px] bg-black bg-opacity-50 text-white p-1 line-clamp-1 w-full">
                     {firstPost.title}
                   </h1>
                 </Link>
@@ -93,7 +93,7 @@ export default async function Home() {
                     style={{ objectFit: "cover" }}
                   />
                 </CardHeader>
-                <CardContent className="p-2 flex flex-col self-end">
+                <CardContent className="p-2 flex flex-col self-end hover:bg-slate-100 transition-all duration-150 ease-in">
                   <CardTitle>{post.title}</CardTitle>
                   <div className="flex justify-between text-xs my-1">
                     <p>{post.readingTime} min read</p>

@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 
 const SignUpPage = () => {
   return (
-    <div className="flex justify-center my-10">
-      <SignUp forceRedirectUrl={"/cart"} />
+    <div className="flex justify-center my-10 ">
+      <SignUp />
     </div>
   );
 };

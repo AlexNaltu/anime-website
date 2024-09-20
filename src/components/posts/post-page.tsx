@@ -9,6 +9,7 @@ import { PortableText } from "@portabletext/react";
 import { urlFor } from "@/sanity/lib/image";
 import urlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/lib/client";
+import { formatDate } from "date-fns";
 
 // Interface for the custom image component
 interface ImageComponentProps {
@@ -17,28 +18,30 @@ interface ImageComponentProps {
 }
 
 interface PostProps {
-  slug: string;
   post: IPost;
 }
 
-const PostPage = ({ slug, post }: PostProps) => {
+const PostPage = ({ post }: PostProps) => {
   // Custom image component for rendering images in the PortableText
   const simpleImageComponent = ({ value, isInline }: ImageComponentProps) => {
     return (
-      <Image
-        src={urlBuilder(client)
-          .image(value)
-          .width(isInline ? 100 : 800)
-          .fit("max")
-          .auto("format")
-          .url()}
-        alt="/"
-        style={{
-          display: isInline ? "inline-block" : "block",
-        }}
-        width={500}
-        height={500}
-      />
+      <div className="relative min-h-[300px]">
+        <Image
+          src={urlBuilder(client)
+            .image(value)
+            .width(isInline ? 100 : 800)
+            .fit("max")
+            .auto("format")
+            .url()}
+          alt="/"
+          style={{
+            display: isInline ? "inline-block" : "block",
+          }}
+          fill
+          sizes="(max-width: 768px)"
+          className="object-cover"
+        />
+      </div>
     );
   };
 
@@ -50,10 +53,25 @@ const PostPage = ({ slug, post }: PostProps) => {
   };
 
   return (
-    <div>
-      <h1>{post.title}</h1>
+    <div className="mt-5 flex flex-col gap-3 max-w-[750px] mx-auto lg:mx-0 px-2 sm:px-4">
+      <div>
+        <h1 className="uppercase font-black">{post.title}</h1>
+        <div className="flex gap-5">
+          <p>{post.readingTime} min read</p>
+          <p>Posted: {formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}</p>
+        </div>
+      </div>
+      <div className="relative min-h-[300px]">
+        <Image
+          src={post.mainImage!}
+          alt="main"
+          fill
+          sizes="(max-width: 768px)"
+          className="object-cover"
+        />
+      </div>
       <p>{post.description}</p>
-      <Image src={post.mainImage!} alt="main" width={300} height={300} />
+
       <PortableText value={post.body!} components={components} />
     </div>
   );

@@ -7,8 +7,7 @@ interface Props {
 
 const AllComments = ({ slug, comments }: Props) => {
   return (
-    <div>
-      <h1>All Comments</h1>
+    <div className="max-w-[1300px] mx-auto px-2 sm:px-4 mt-2 sm:mt-6">
       {comments.length === 0 && <p>No comments yet</p>}
       {comments?.map((comment) => (
         <div key={comment?._id} className="border-b border-gray-200/50 py-2">

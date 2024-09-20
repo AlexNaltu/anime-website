@@ -40,25 +40,23 @@ const AddComment = ({ postId }: Props) => {
   };
 
   return (
-    <div className="mt-14">
-      <p>
-        Leave a comment <span role="img">💬</span>
-      </p>
+    <div className="mt-14 max-w-[1300px] mx-auto px-2 sm:px-4">
+      <p className="uppercase font-black text-lg">Leave a comment</p>
       {isSignedIn ? (
         <form
-          className="flex flex-col border dark:border-purple-950 shadow-sm rounded px-8 pt-6 pb-6 mb-10"
+          className="flex flex-col gap-2"
           onSubmit={handleSubmit((data) => onSubmit(data))}
         >
-          <label>Comment</label>
           <textarea
             {...register("comment", { required: true, minLength: 2 })}
-            className="mb-4 py-1 bg-amber-100 dark:bg-slate-900"
+            rows={5}
+            className="bg-transparent border-2 border-white p-2 rounded mt-3"
           />
           {errors.comment && (
             <p className="text-red-600 text-xs">Minimum 2 characters.</p>
           )}
           <input
-            className={`cursor-pointer bg-purple-500 text-white rounded py-2 hover:bg-purple-600 ${
+            className={`cursor-pointer bg-black text-white rounded py-2 hover:bg-white hover:text-black transition-all duration-200 ease-linear ${
               isSubmitting ? "opacity-50" : ""
             }`}
             disabled={isSubmitting}
@@ -67,9 +65,15 @@ const AddComment = ({ postId }: Props) => {
           />
         </form>
       ) : (
-        <div>
-          <p>You must be logged in to comment</p>
-          <Link href="/sign-in">Sign In</Link>
+        <div className="flex gap-1 mt-2 mb-3">
+          <p>
+            You must be logged in to comment -{" "}
+            <span className="underline hover:decoration-red-600 transition-all duration-150 ease-linear">
+              <Link href="/sign-in" className="">
+                Sign In
+              </Link>
+            </span>
+          </p>
         </div>
       )}
     </div>

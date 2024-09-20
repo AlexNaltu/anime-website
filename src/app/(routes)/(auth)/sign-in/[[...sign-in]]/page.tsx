@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const SignInPage = () => {
   return (
     <div className="flex justify-center my-10">
-      <SignIn forceRedirectUrl={"/cart"} />
+      <SignIn />
     </div>
   );
 };

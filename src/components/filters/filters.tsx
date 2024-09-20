@@ -29,7 +29,7 @@ const Filters = ({ className }: FilterProps) => {
         <Button
           key={i}
           onClick={() => setFilter(category.href)}
-          className="bg-transparent p-0  hover:bg-transparent hover:text-red-950 w-fit"
+          className="bg-transparent p-0  hover:bg-transparent hover:text-slate-300 w-fit"
         >
           {category.title}
         </Button>
