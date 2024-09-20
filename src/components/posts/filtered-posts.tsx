@@ -17,6 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Filters from "../filters/filters";
 
 interface PageClickData {
   selectedPage: number;
@@ -52,10 +53,17 @@ const FilteredPosts = () => {
     return data;
   }, [data, category]);
 
+  console.log(category);
+
   if (error) return <div>{error.message}</div>;
   if (categoryFilterPosts && data)
     return (
       <div className="px-2 sm:px-4 max-w-[1300px] mx-auto">
+        <div className="md:max-w-[700px]">
+          <div>{category ? <h1>{category?.title}</h1> : <h2>Latest</h2>}</div>
+          <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
+          <Filters className="flex max-w-[750px] overflow-x-auto filter-scrollbar gap-4" />
+        </div>
         <div>
           {categoryFilterPosts
             .slice(offset, offset + itemsPerPage)
