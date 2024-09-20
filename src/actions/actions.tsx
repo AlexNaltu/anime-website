@@ -138,6 +138,7 @@ export const getRelatedPosts = async ({
   }
 };
 
+// get featured playlist
 export const getFeaturedPlaylist = async () => {
   try {
     const featuredPlaylist =
@@ -158,6 +159,7 @@ export const getFeaturedPlaylist = async () => {
   }
 };
 
+// get latest posts
 export const getLatestPosts = async () => {
   try {
     const data =
