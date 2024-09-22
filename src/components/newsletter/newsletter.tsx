@@ -77,16 +77,23 @@ const Newsletter = () => {
       <h1 className="text-lg mb-2">
         Join the newsletter for the latest blog updates
       </h1>
-      <form className="flex flex-col xs:flex-row">
-        <Input
-          {...register("email")}
-          type="email"
-          placeholder="Your Email"
-          className="border-black bg-white rounded-none placeholder:text-black placeholder:font-black text-black"
-        />
-        <Button type="submit" className="px-6 bg-black rounded-none w-fit">
-          {submitting ? "Submitting..." : "Subscribe"}
-        </Button>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+        <div className="flex flex-col xs:flex-row">
+          <Input
+            {...register("email")}
+            type="email"
+            placeholder="Your Email"
+            className="border-black bg-white rounded-none placeholder:text-black placeholder:font-black text-black"
+          />
+          <Button
+            type="submit"
+            className="px-6 bg-black rounded-none w-fit"
+            disabled={buttonDisabled}
+            onClick={submittingClick}
+          >
+            {submitting ? "Submitting..." : "Subscribe"}
+          </Button>
+        </div>
         {message && (
           <p
             className={`${status !== 201 ? "text-red-500" : "text-green-500"} font-black`}
