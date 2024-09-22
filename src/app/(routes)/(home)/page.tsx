@@ -17,6 +17,7 @@ import Image from "next/image";
 import { formatDate } from "date-fns";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Newsletter from "@/components/newsletter/newsletter";
 
 export default async function Home() {
   const [posts, featuredPlaylist] = await Promise.all([
@@ -123,6 +124,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
+      <Newsletter />
     </div>
   );
 }
