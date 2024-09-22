@@ -81,46 +81,43 @@ const Searchbar = () => {
   if (error) return <div>Error loading posts</div>;
 
   return (
-    <div>
-      <Drawer direction="left">
-        <DrawerTrigger>
-          <Image
-            src="/icons/searchbar-icon.svg"
-            alt="logo"
-            width={35}
-            height={35}
-          />
-        </DrawerTrigger>
-        <DrawerContent className="px-3 font-sans font-medium text-base  bg-gradient-to-t from-black from-50% to-red-950 to-100% border-r-2 border-x-red-950 text-white max-w-[400px]">
-          <DrawerHeader className="flex justify-between items-center mb-2">
-            <DrawerTitle>Search Blog</DrawerTitle>
-            <DrawerClose children={<AiOutlineClose size={30} />} />
-          </DrawerHeader>
-          <DrawerDescription>
-            <form>
-              <Input
-                type="text"
-                placeholder="Search..."
-                {...register("search", {
-                  onChange: (e) => handleChange(e),
-                })}
-              />
-            </form>
-            {queryText && queryText.length > 2 && (
-              <div>
-                {searchResults && searchResults.length > 0 ? (
-                  searchResults.map((result) => (
-                    <SearchResults key={result._id} result={result} />
-                  ))
-                ) : (
-                  <p>No Results Found</p>
-                )}
-              </div>
-            )}
-          </DrawerDescription>
-        </DrawerContent>
-      </Drawer>
-    </div>
+    <Drawer direction="left">
+      <DrawerTrigger>
+        <Image
+          src="/icons/searchbar-icon.svg"
+          alt="logo"
+          width={35}
+          height={35}
+        />
+      </DrawerTrigger>
+      <DrawerContent className="px-3 font-sans font-medium text-base  bg-gradient-to-t from-black from-50% to-red-950 to-100% border-r-2 border-x-red-950 text-white max-w-[400px]">
+        <DrawerHeader className="flex justify-between items-center mb-2">
+          <DrawerTitle>Search Blog</DrawerTitle>
+        </DrawerHeader>
+        <DrawerDescription>
+          <form>
+            <Input
+              type="text"
+              placeholder="Search..."
+              {...register("search", {
+                onChange: (e) => handleChange(e),
+              })}
+            />
+          </form>
+          {queryText && queryText.length > 2 && (
+            <div>
+              {searchResults && searchResults.length > 0 ? (
+                searchResults.map((result) => (
+                  <SearchResults key={result._id} result={result} />
+                ))
+              ) : (
+                <p>No Results Found</p>
+              )}
+            </div>
+          )}
+        </DrawerDescription>
+      </DrawerContent>
+    </Drawer>
   );
 };
 

@@ -6,12 +6,12 @@ import React from "react";
 const LatestNews = async () => {
   const latestNews = await getLatestNews();
   return (
-    <div>
+    <div className="mt-3">
       <h1 className="font-black text-xl mb-2">Latest News</h1>
-      <div>
+      <div className="flex flex-col gap-3">
         {latestNews.map((post: IPost) => (
           <div key={post._id}>
-            <h1>-{post.title}</h1>
+            <h1>{post.title}</h1>
           </div>
         ))}
       </div>
