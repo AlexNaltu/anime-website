@@ -16,12 +16,14 @@ import {
 import { getQueryClient } from "@/lib/query";
 import { getPosts } from "@/actions/actions";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import Filters from "../filters/filters";
+import { links } from "@/lib/constants";
 
 export default async function Navbar() {
   // Prefetch the posts data for the search bar
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ["posts"],
+    queryKey: ["searchbarPosts"],
     queryFn: async () => {
       const posts = await getPosts();
       if (posts.error) throw new Error(posts.error);
@@ -42,15 +44,30 @@ export default async function Navbar() {
                 height={35}
               />
             </DrawerTrigger>
-            <DrawerContent className="px-3 font-sans font-medium text-base bg-primary text-white max-w-[400px]">
+            <DrawerContent className="px-3 font-sans font-medium text-base  bg-gradient-to-t from-black from-50% to-red-950 to-100% border-r-2 border-x-red-950 text-white max-w-[400px]">
               <DrawerHeader>
-                <DrawerTitle>Search</DrawerTitle>
+                <DrawerTitle className="text-xl">
+                  <h1> Categories</h1>
+                  <div className="w-full h-1 bg-gradient-to-r from-black from-50% to-red-950 to-100%" />
+                </DrawerTitle>
                 <DrawerClose />
               </DrawerHeader>
-              <DrawerDescription></DrawerDescription>
-              <DrawerFooter>
-                <button>Search</button>
-              </DrawerFooter>
+              <DrawerDescription>
+                <Filters className="flex flex-col" />
+                <h1 className="text-xl text-white mt-4">More</h1>
+                <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
+                <div className="flex flex-col my-4 gap-4">
+                  {links.map((link) => (
+                    <Link
+                      key={link.title}
+                      href={link.href}
+                      className="text-white hover:text-slate-300"
+                    >
+                      {link.title}
+                    </Link>
+                  ))}
+                </div>
+              </DrawerDescription>
             </DrawerContent>
           </Drawer>
           <Link href={"/"}>
