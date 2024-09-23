@@ -23,7 +23,7 @@ import { AiOutlineClose } from "react-icons/ai";
 const Searchbar = () => {
   // fetching the posts
   const { data, error, isLoading } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["searchbarPosts"],
     queryFn: async () => {
       const products = await getPosts();
       if (products.error) throw new Error(products.error);
@@ -111,7 +111,7 @@ const Searchbar = () => {
                   <SearchResults key={result._id} result={result} />
                 ))
               ) : (
-                <p>No Results Found</p>
+                <p className="mt-2">No Results Found</p>
               )}
             </div>
           )}

@@ -9,10 +9,20 @@ interface ISearchResultsProps {
 
 const SearchResults = ({ result }: ISearchResultsProps) => {
   return (
-    <div>
+    <div className="bg-white mt-3 border-4 border-black hover:bg-slate-100 transition-all duration-150 ease-in">
       <Link href={`/posts/${result.slug}`}>
-        <Image src={result.mainImage} alt="logo" width={100} height={100} />
-        <h1>{result.title}</h1>
+        <div className="relative w-full h-[150px]">
+          <Image
+            src={result.mainImage}
+            alt="logo"
+            fill
+            sizes="(max-width: 768px)"
+            className="object-cover"
+          />
+        </div>
+        <h1 className="px-1 text-black sm:text-lg line-clamp-3">
+          {result.title}
+        </h1>
       </Link>
     </div>
   );
