@@ -97,6 +97,7 @@ const Searchbar = () => {
         <DrawerDescription>
           <form>
             <Input
+              className="text-white"
               type="text"
               placeholder="Search..."
               {...register("search", {
@@ -111,7 +112,7 @@ const Searchbar = () => {
                   <SearchResults key={result._id} result={result} />
                 ))
               ) : (
-                <p className="mt-2">No Results Found</p>
+                <p className="mt-2 text-white">No Results Found</p>
               )}
             </div>
           )}
