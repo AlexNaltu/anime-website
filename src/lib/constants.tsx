@@ -36,3 +36,26 @@ export const Categories = [
     href: "Theories",
   },
 ];
+
+export const links = [
+  {
+    title: "Home",
+    href: "/",
+  },
+  {
+    title: "About",
+    href: "/about",
+  },
+  {
+    title: "Contact",
+    href: "/contact",
+  },
+  {
+    title: "Sign In",
+    href: "/sing-in",
+  },
+  {
+    title: "Sign Up",
+    href: "/sign-up",
+  },
+];
