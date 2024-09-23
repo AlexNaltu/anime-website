@@ -15,6 +15,35 @@ import {
 } from "@/components/ui/card";
 import { formatDate } from "date-fns";
 import Filters from "@/components/filters/filters";
+import { Metadata } from "next";
+
+// Metadata for the slug page
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  try {
+    const post = await getPostBySlug({ slug: params.slug });
+
+    return {
+      title: post.title,
+      keywords: post.tags.map((tag: ITag) => tag.tag),
+      openGraph: {
+        images: [
+          {
+            url: post.mainImage,
+            width: 800,
+            height: 600,
+            alt: post.title,
+          },
+        ],
+      },
+    };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}
 
 const PostSlugPage = async ({ params }: { params: { slug: string } }) => {
   const post = await getPostBySlug({ slug: params.slug });
