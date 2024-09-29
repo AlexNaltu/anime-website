@@ -4,9 +4,9 @@ import { getQueryClient } from "@/lib/query";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React, { Suspense } from "react";
 
-const PostsPage = () => {
+const PostsPage = async () => {
   const queryClient = getQueryClient();
-  queryClient.prefetchQuery({
+  await queryClient.prefetchQuery({
     queryKey: ["posts"],
     queryFn: async () => {
       const posts = await getPosts();
