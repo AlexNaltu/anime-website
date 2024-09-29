@@ -116,7 +116,7 @@ export default async function Home() {
           </Link>
         </div>
 
-        <div className="">
+        <div className="lg:max-w-xs">
           <div>
             <h1 className="font-black text-xl">Categories</h1>
             <Filters className="flex flex-col text-start" />

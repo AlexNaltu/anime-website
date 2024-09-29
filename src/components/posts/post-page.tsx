@@ -53,9 +53,11 @@ const PostPage = ({ post }: PostProps) => {
   };
 
   return (
-    <div className="mt-5 flex flex-col gap-3 max-w-[750px] mx-auto lg:mx-0 px-2 sm:px-4">
+    <div className="mt-5 flex flex-col gap-3 max-w-[750px] mx-auto lg:mx-0 px-2 sm:px-4 md:mt-10">
       <div>
-        <h1 className="uppercase font-black">{post.title}</h1>
+        <h1 className="uppercase font-black text-xl sm:text-2xl lg:text-4xl">
+          {post.title}
+        </h1>
         <div className="flex gap-5">
           <p>{post.readingTime} min read</p>
           <p>Posted: {formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}</p>
@@ -67,7 +69,7 @@ const PostPage = ({ post }: PostProps) => {
           alt="main"
           fill
           sizes="(max-width: 768px)"
-          className="object-cover"
+          className="object-cover mb-5"
         />
       </div>
       <p>{post.description}</p>

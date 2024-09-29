@@ -40,7 +40,7 @@ const FilteredPosts = () => {
   const handlePageClick = (selectedPage: PageClickData) => {
     setCurrentPage(selectedPage.selected);
   };
-  const itemsPerPage = 1;
+  const itemsPerPage = 10;
   const offset = currentPage * itemsPerPage;
 
   const categoryFilterPosts = useMemo(() => {
@@ -64,7 +64,7 @@ const FilteredPosts = () => {
           <Filters className="flex overflow-x-auto filter-scrollbar gap-4" />
           <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
         </div>
-        <div>
+        <div className="flex flex-col gap-3">
           {categoryFilterPosts.length > 0 ? (
             categoryFilterPosts
               .slice(offset, offset + itemsPerPage)
