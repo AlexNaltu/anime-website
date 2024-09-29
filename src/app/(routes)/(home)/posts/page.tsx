@@ -2,7 +2,7 @@ import { getPosts } from "@/actions/actions";
 import FilteredPosts from "@/components/posts/filtered-posts";
 import { getQueryClient } from "@/lib/query";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import React from "react";
+import React, { Suspense } from "react";
 
 const PostsPage = () => {
   const queryClient = getQueryClient();
@@ -17,7 +17,9 @@ const PostsPage = () => {
   return (
     <div>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <FilteredPosts />
+        <Suspense fallback={<p>Loading...</p>}>
+          <FilteredPosts />
+        </Suspense>
       </HydrationBoundary>
     </div>
   );
