@@ -4,7 +4,7 @@ import { ICategory, IPost } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Suspense, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { formatDate } from "date-fns";
 import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
@@ -60,69 +60,63 @@ const FilteredPosts = () => {
 
   if (categoryFilterPosts && data)
     return (
-      <Suspense fallback={<p>Loading...</p>}>
-        <div className="px-2 sm:px-4 max-w-[1300px] mx-auto">
-          <div className="my-2">
-            <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
-            <Filters className="flex overflow-x-auto filter-scrollbar gap-4" />
-            <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
-          </div>
-          <div className="flex flex-col gap-3">
-            {categoryFilterPosts.length > 0 ? (
-              categoryFilterPosts
-                .slice(offset, offset + itemsPerPage)
-                .map((post: IPost) => (
-                  <Link key={post._id} href={`/posts/${post.slug}`}>
-                    <Card className="rounded-none sm:flex justify-between">
-                      <CardHeader className="p-2 relative w-full sm:min-w-[40%] min-[900px]:w-[400px] h-[200px]">
-                        <Image
-                          src={post.mainImage}
-                          alt={post.title}
-                          fill
-                          sizes="(max-width: 768px) (height: 200px)"
-                          style={{ objectFit: "cover" }}
-                        />
-                      </CardHeader>
-                      <CardContent className="p-2 flex flex-col self-end ">
-                        <CardTitle>{post.title}</CardTitle>
-                        <div className="flex justify-between text-xs my-1">
-                          <p>{post.readingTime} min read</p>
-                          <p>
-                            {formatDate(
-                              new Date(post.publishedAt),
-                              "dd.MM.yyyy"
-                            )}
-                          </p>
-                        </div>
-                        <CardDescription className="line-clamp-4 sm:line-clamp-3">
-                          {post.description}
-                        </CardDescription>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))
-            ) : (
-              <h1>No posts found</h1>
-            )}
-          </div>
-          {categoryFilterPosts.length > 0 ? (
-            <ReactPaginate
-              pageCount={Math.ceil(
-                (categoryFilterPosts?.length || data?.length || 0) /
-                  itemsPerPage
-              )}
-              pageRangeDisplayed={2}
-              marginPagesDisplayed={1}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination"}
-              activeClassName={"active"}
-              nextLabel={<MdKeyboardArrowRight size={25} />}
-              previousLabel={<MdKeyboardArrowLeft size={25} />}
-              breakLabel={"..."}
-            />
-          ) : null}
+      <div className="px-2 sm:px-4 max-w-[1300px] mx-auto">
+        <div className="my-2">
+          <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
+          <Filters className="flex overflow-x-auto filter-scrollbar gap-4" />
+          <div className="w-full h-1 bg-gradient-to-l from-black from-50% to-red-950 to-100%" />
         </div>
-      </Suspense>
+        <div className="flex flex-col gap-3">
+          {categoryFilterPosts.length > 0 ? (
+            categoryFilterPosts
+              .slice(offset, offset + itemsPerPage)
+              .map((post: IPost) => (
+                <Link key={post._id} href={`/posts/${post.slug}`}>
+                  <Card className="rounded-none sm:flex justify-between">
+                    <CardHeader className="p-2 relative w-full sm:min-w-[40%] min-[900px]:w-[400px] h-[200px]">
+                      <Image
+                        src={post.mainImage}
+                        alt={post.title}
+                        fill
+                        sizes="(max-width: 768px) (height: 200px)"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </CardHeader>
+                    <CardContent className="p-2 flex flex-col self-end ">
+                      <CardTitle>{post.title}</CardTitle>
+                      <div className="flex justify-between text-xs my-1">
+                        <p>{post.readingTime} min read</p>
+                        <p>
+                          {formatDate(new Date(post.publishedAt), "dd.MM.yyyy")}
+                        </p>
+                      </div>
+                      <CardDescription className="line-clamp-4 sm:line-clamp-3">
+                        {post.description}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))
+          ) : (
+            <h1>No posts found</h1>
+          )}
+        </div>
+        {categoryFilterPosts.length > 0 ? (
+          <ReactPaginate
+            pageCount={Math.ceil(
+              (categoryFilterPosts?.length || data?.length || 0) / itemsPerPage
+            )}
+            pageRangeDisplayed={5}
+            marginPagesDisplayed={2}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+            nextLabel={<MdKeyboardArrowRight size={25} />}
+            previousLabel={<MdKeyboardArrowLeft size={25} />}
+            breakLabel={"..."}
+          />
+        ) : null}
+      </div>
     );
 };
 
